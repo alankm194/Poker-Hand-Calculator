@@ -1,6 +1,6 @@
 package org.alan;
 
-public enum Card {
+public enum CardValues {
 
     TWO(2),
     THREE(3),
@@ -17,7 +17,7 @@ public enum Card {
     ACE(14);
 
     private final int value;
-    Card (int value) {
+    CardValues (int value) {
         this.value = value;
     }
 
