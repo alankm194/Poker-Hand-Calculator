@@ -1,6 +1,8 @@
 package org.alan;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,9 +14,10 @@ class CardTest {
         assertEquals(FaceValues.ACE, ace.getFaceValue());
     }
 
-    @Test
-    void testGetSuitValue() {
-        Card ace = new Card(FaceValues.ACE, SuitValues.SPADES);
-        assertEquals(SuitValues.SPADES, ace.getSuitValue());
+    @ParameterizedTest
+    @CsvSource({"DIAMOND", "CLUB", "HEARTS", "SPADES",})
+    void testGetSuitValue(String input) {
+        Card ace = new Card(FaceValues.ACE, SuitValues.valueOf(input));
+        assertEquals(SuitValues.valueOf(input), ace.getSuitValue());
     }
 }
