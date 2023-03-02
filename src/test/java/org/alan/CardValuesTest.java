@@ -9,7 +9,7 @@ class CardValuesTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/cardValuesTest.csv", numLinesToSkip = 1)
-    void testHand(String card, int expectedValue){
+    void testGettingCorrectCardValues(String card, int expectedValue){
         assertEquals(expectedValue, CardValues.valueOf(card).getValue());
     }
 
