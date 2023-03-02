@@ -8,8 +8,8 @@ class CardTest {
 
     @Test
     void testGetFaceValue() {
-        Card ace = new Card(CardValues.ACE);
-        assertEquals(CardValues.ACE, ace.getFaceValue());
+        Card ace = new Card(FaceValues.ACE);
+        assertEquals(FaceValues.ACE, ace.getFaceValue());
     }
 
 }

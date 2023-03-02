@@ -4,13 +4,13 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CardValuesTest {
+class FaceValuesTest {
 
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/cardValuesTest.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/faceValuesTest.csv", numLinesToSkip = 1)
     void testGettingCorrectCardValues(String card, int expectedValue){
-        assertEquals(expectedValue, CardValues.valueOf(card).getValue());
+        assertEquals(expectedValue, FaceValues.valueOf(card).getValue());
     }
 
 }

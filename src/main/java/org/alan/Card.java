@@ -2,12 +2,12 @@ package org.alan;
 
 public class Card {
 
-    private CardValues face;
-    public Card(CardValues face) {
+    private FaceValues face;
+    public Card(FaceValues face) {
         this.face = face;
     }
 
-    public CardValues getFaceValue() {
+    public FaceValues getFaceValue() {
         return face;
     }
 }
