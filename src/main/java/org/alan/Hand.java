@@ -1,6 +1,7 @@
 package org.alan;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Hand {
 
@@ -15,6 +16,10 @@ public class Hand {
         if (currentHand.size() > MAX_HAND) {
             throw new IllegalArgumentException("A legal hand must be 5 cards");
         }
-        this.currentHand = currentHand;
+
+        this.currentHand = currentHand
+                .stream()
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
