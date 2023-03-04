@@ -8,6 +8,9 @@ public class Hand {
     private static final int MAX_HAND = 5;
     private List<Card> currentHand;
 
+    private HandRank handRank;
+
+
     public List<Card> getHand() {
         return currentHand;
     }
@@ -22,4 +25,13 @@ public class Hand {
                 .sorted()
                 .collect(Collectors.toList());
     }
+    public HandRank getHandRank() {
+        return handRank;
+    }
+
+    public void setHandRank(HandRank handRank) {
+        this.handRank = handRank;
+    }
+
+
 }

@@ -2,6 +2,8 @@ package org.alan;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,7 @@ class HandTest {
     }
 
     @Test
-    void whenSettingHandTest() {
+    void whenSettingHandTest_ensureHandIsSorted() {
         var hand = new Hand();
         List<Card> cardList = Stream.of(
                         new Card(FaceValues.ACE, SuitValues.SPADES),
@@ -57,5 +59,13 @@ class HandTest {
         var expectedList = cardList.stream().sorted().toList();
         hand.setHand(cardList);
         assertEquals(expectedList, hand.getHand());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"FOUR_OF_A_KIND", "STRAIGHT_FLUSH", "FLUSH", "HIGH_CARD"})
+    void testAssignHandRank(String handRank) {
+        Hand hand = new Hand();
+        hand.setHandRank(HandRank.valueOf(handRank));
+        assertEquals(HandRank.valueOf(handRank), hand.getHandRank());
     }
 }
