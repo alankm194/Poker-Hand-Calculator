@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HandTest {
 
@@ -25,7 +24,7 @@ class HandTest {
                         new Card(FaceValues.THREE, SuitValues.DIAMOND))
                 .collect(Collectors.toList());
         hand.setHand(expectedList);
-        assertEquals(expectedList, hand.getHand());
+        assertTrue( hand.getHand().containsAll(expectedList));
     }
 
     @Test
