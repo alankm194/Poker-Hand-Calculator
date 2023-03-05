@@ -85,4 +85,22 @@ class GameTest {
         game.rankHand(player1);
         assertEquals(HandRank.FULL_HOUSE, player1.getHandRank());
     }
+
+    @Test
+    void testPlayersHandHasFlush() {
+        var flush = List.of(
+                new Card(FaceValues.KING, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.FIVE, SuitValues.SPADES),
+                new Card(FaceValues.FIVE, SuitValues.SPADES),
+                new Card(FaceValues.FIVE, SuitValues.SPADES)
+        );
+        Hand player1 = new Hand();
+        player1.setHand(flush);
+        Hand player2 = new Hand();
+        player2.setHand(flush);
+        Game game = new Game(player1, player2);
+        game.rankHand(player1);
+        assertEquals(HandRank.FLUSH, player1.getHandRank());
+    }
 }

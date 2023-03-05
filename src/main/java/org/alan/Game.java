@@ -31,6 +31,8 @@ public class Game {
             hand.setHandRank(HandRank.FOUR_OF_A_KIND);
         } else if(isFullHouse(listCards)) {
             hand.setHandRank(HandRank.FULL_HOUSE);
+        } else if(isFlush(listCards)) {
+            hand.setHandRank(HandRank.FLUSH);
         }
     }
 
@@ -83,4 +85,15 @@ public class Game {
 
         return hasTriple && hasDouble;
     }
+
+    private boolean isFlush(List<Card> cardList) {
+        var suitList = cardList.stream()
+                .map(Card::getSuitValue)
+                .toList();
+
+        return suitList.stream()
+                .anyMatch(i -> Collections.frequency(suitList, i) == 5);
+
+    }
+
 }
