@@ -2,6 +2,8 @@ package org.alan;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
+
 
 public class Game {
 
@@ -9,6 +11,8 @@ public class Game {
     private final Hand player2;
 
     private HandRank handRank;
+
+    private static final int FULL_HAND = 5;
 
     public Game(Hand player1, Hand player2) {
         this.player1 = player1;
@@ -33,6 +37,8 @@ public class Game {
             hand.setHandRank(HandRank.FULL_HOUSE);
         } else if(isFlush(listCards)) {
             hand.setHandRank(HandRank.FLUSH);
+        }else if(isStraight(listCards)) {
+            hand.setHandRank(HandRank.STRAIGHT);
         }
     }
 
@@ -65,6 +71,7 @@ public class Game {
     private boolean isFullHouse(List<Card> listCards) {
         final int TRIPLE = 3;
         final int PAIR = 2;
+        final int DISTINCT_FACES_FULLHOUSE = 2;
         var faceValuesList = listCards.stream()
                 .map(Card::getFaceValue)
                 .toList();
@@ -73,7 +80,7 @@ public class Game {
                 .map(Card::getFaceValue)
                 .distinct()
                 .toList();
-        if (distinctFacesList.size() != 2) {
+        if (distinctFacesList.size() != DISTINCT_FACES_FULLHOUSE) {
             return false;
         }
         var hasTriple = false;
@@ -92,7 +99,19 @@ public class Game {
                 .toList();
 
         return suitList.stream()
-                .anyMatch(i -> Collections.frequency(suitList, i) == 5);
+                .anyMatch(i -> Collections.frequency(suitList, i) == FULL_HAND);
+
+    }
+
+    private boolean isStraight(List<Card> cardList) {
+        var startFaceValue = cardList.get(0).getFaceValue().getValue();
+        var faceValueList = cardList.stream()
+                .map(e -> e.getFaceValue().getValue()).toList();
+
+        var startToEnd = IntStream.range(startFaceValue, startFaceValue + FULL_HAND)
+                .boxed()
+                .toList();
+        return faceValueList.equals(startToEnd);
 
     }
 
