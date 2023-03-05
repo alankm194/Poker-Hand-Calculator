@@ -15,6 +15,7 @@ class GameTest {
     private static List<Card> FLUSH;
     private static List<Card> STRAIGHT;
     private static List<Card> THREE_OF_A_KIND;
+    private static List<Card> TWO_PAIR;
 
     @BeforeAll
     static void init() {
@@ -65,6 +66,14 @@ class GameTest {
                 new Card(FaceValues.TEN, SuitValues.CLUB),
                 new Card(FaceValues.NINE, SuitValues.SPADES)
         );
+        TWO_PAIR = List.of(
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.DIAMOND),
+                new Card(FaceValues.ACE, SuitValues.SPADES),
+                new Card(FaceValues.ACE, SuitValues.CLUB),
+                new Card(FaceValues.NINE, SuitValues.SPADES)
+        );
+        
     }
 
     @Test
@@ -139,7 +148,6 @@ class GameTest {
 
     @Test
     void testPlayersHandHasStraight() {
-
         Hand player1 = new Hand();
         player1.setHand(STRAIGHT);
         Hand player2 = new Hand();
@@ -159,4 +167,16 @@ class GameTest {
         game.rankHand(player1);
         assertEquals(HandRank.THREE_OF_A_KIND, player1.getHandRank());
     }
+
+    @Test
+    void testPlayerHasTwoPair() {
+        Hand player1 = new Hand();
+        player1.setHand(TWO_PAIR);
+        Hand player2 = new Hand();
+        player2.setHand(TWO_PAIR);
+        Game game = new Game(player1, player2);
+        game.rankHand(player1);
+        assertEquals(HandRank.TWO_PAIR, player1.getHandRank());
+    }
+
 }

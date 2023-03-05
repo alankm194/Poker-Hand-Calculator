@@ -37,8 +37,10 @@ public class Game {
             hand.setHandRank(HandRank.FLUSH);
         } else if (isStraight(listCards)) {
             hand.setHandRank(HandRank.STRAIGHT);
-        } else if(isThreeOfAKind(listCards)) {
+        } else if (isThreeOfAKind(listCards)) {
             hand.setHandRank(HandRank.THREE_OF_A_KIND);
+        } else if (isTwoPair(listCards)) {
+            hand.setHandRank(HandRank.TWO_PAIR);
         }
     }
 
@@ -121,5 +123,17 @@ public class Game {
                 .toList();
         return faceValuesList.stream()
                 .anyMatch(i -> Collections.frequency(faceValuesList, i) == THREE_OF_A_KIND);
+    }
+
+    private boolean isTwoPair(List<Card> listCards) {
+        final int TWO_PAIR = 2;
+        var faceValuesList = listCards.stream()
+                .map(Card::getFaceValue)
+                .toList();
+
+        return faceValuesList.stream()
+                .filter(i -> Collections.frequency(faceValuesList, i) == TWO_PAIR)
+                .distinct()
+                .count() == 2;
     }
 }
