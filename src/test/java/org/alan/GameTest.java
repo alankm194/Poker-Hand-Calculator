@@ -67,4 +67,22 @@ class GameTest {
         game.rankHand(player1);
         assertEquals(HandRank.FOUR_OF_A_KIND, player1.getHandRank());
     }
+
+    @Test
+    void testPlayersHandHasFullHouse() {
+        var fullhouse = List.of(
+                new Card(FaceValues.KING, SuitValues.SPADES),
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.FIVE, SuitValues.DIAMOND),
+                new Card(FaceValues.FIVE, SuitValues.CLUB),
+                new Card(FaceValues.FIVE, SuitValues.HEARTS)
+        );
+        Hand player1 = new Hand();
+        player1.setHand(fullhouse);
+        Hand player2 = new Hand();
+        player2.setHand(fullhouse);
+        Game game = new Game(player1, player2);
+        game.rankHand(player1);
+        assertEquals(HandRank.FULL_HOUSE, player1.getHandRank());
+    }
 }

@@ -29,6 +29,8 @@ public class Game {
             hand.setHandRank(HandRank.STRAIGHT_FLUSH);
         } else if (isFourOfAKind(listCards)) {
             hand.setHandRank(HandRank.FOUR_OF_A_KIND);
+        } else if(isFullHouse(listCards)) {
+            hand.setHandRank(HandRank.FULL_HOUSE);
         }
     }
 
@@ -58,4 +60,27 @@ public class Game {
                 .anyMatch(i -> Collections.frequency(faceValuesList, i) == FOUR_OF_A_KIND);
     }
 
+    private boolean isFullHouse(List<Card> listCards) {
+        final int TRIPLE = 3;
+        final int PAIR = 2;
+        var faceValuesList = listCards.stream()
+                .map(Card::getFaceValue)
+                .toList();
+
+        var distinctFacesList = listCards.stream()
+                .map(Card::getFaceValue)
+                .distinct()
+                .toList();
+        if (distinctFacesList.size() != 2) {
+            return false;
+        }
+        var hasTriple = false;
+        var hasDouble = false;
+        for (FaceValues face: distinctFacesList) {
+            hasTriple = hasTriple || Collections.frequency(faceValuesList, face) == TRIPLE;
+            hasDouble = hasDouble || Collections.frequency(faceValuesList, face) == PAIR;
+        }
+
+        return hasTriple && hasDouble;
+    }
 }
