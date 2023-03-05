@@ -41,6 +41,8 @@ public class Game {
             hand.setHandRank(HandRank.THREE_OF_A_KIND);
         } else if (isTwoPair(listCards)) {
             hand.setHandRank(HandRank.TWO_PAIR);
+        } else if (isPair(listCards)) {
+            hand.setHandRank(HandRank.PAIR);
         }
     }
 
@@ -127,13 +129,28 @@ public class Game {
 
     private boolean isTwoPair(List<Card> listCards) {
         final int TWO_PAIR = 2;
+        final int PAIR = 2;
         var faceValuesList = listCards.stream()
                 .map(Card::getFaceValue)
                 .toList();
 
         return faceValuesList.stream()
-                .filter(i -> Collections.frequency(faceValuesList, i) == TWO_PAIR)
+                .filter(i -> Collections.frequency(faceValuesList, i) == PAIR)
                 .distinct()
-                .count() == 2;
+                .count() == TWO_PAIR;
+    }
+
+    private boolean isPair(List<Card> listCards) {
+        final int PAIR = 2;
+        final int ONE_PAIR = 1;
+
+        var faceValuesList = listCards.stream()
+                .map(Card::getFaceValue)
+                .toList();
+
+        return faceValuesList.stream()
+                .filter(i -> Collections.frequency(faceValuesList, i) == PAIR)
+                .distinct()
+                .count() == ONE_PAIR;
     }
 }
