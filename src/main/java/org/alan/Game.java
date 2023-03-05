@@ -9,9 +9,7 @@ public class Game {
 
     private final Hand player1;
     private final Hand player2;
-
     private HandRank handRank;
-
     private static final int FULL_HAND = 5;
 
     public Game(Hand player1, Hand player2) {
@@ -33,12 +31,14 @@ public class Game {
             hand.setHandRank(HandRank.STRAIGHT_FLUSH);
         } else if (isFourOfAKind(listCards)) {
             hand.setHandRank(HandRank.FOUR_OF_A_KIND);
-        } else if(isFullHouse(listCards)) {
+        } else if (isFullHouse(listCards)) {
             hand.setHandRank(HandRank.FULL_HOUSE);
-        } else if(isFlush(listCards)) {
+        } else if (isFlush(listCards)) {
             hand.setHandRank(HandRank.FLUSH);
-        }else if(isStraight(listCards)) {
+        } else if (isStraight(listCards)) {
             hand.setHandRank(HandRank.STRAIGHT);
+        } else if(isThreeOfAKind(listCards)) {
+            hand.setHandRank(HandRank.THREE_OF_A_KIND);
         }
     }
 
@@ -85,7 +85,7 @@ public class Game {
         }
         var hasTriple = false;
         var hasDouble = false;
-        for (FaceValues face: distinctFacesList) {
+        for (FaceValues face : distinctFacesList) {
             hasTriple = hasTriple || Collections.frequency(faceValuesList, face) == TRIPLE;
             hasDouble = hasDouble || Collections.frequency(faceValuesList, face) == PAIR;
         }
@@ -93,8 +93,8 @@ public class Game {
         return hasTriple && hasDouble;
     }
 
-    private boolean isFlush(List<Card> cardList) {
-        var suitList = cardList.stream()
+    private boolean isFlush(List<Card> listCards) {
+        var suitList = listCards.stream()
                 .map(Card::getSuitValue)
                 .toList();
 
@@ -103,16 +103,23 @@ public class Game {
 
     }
 
-    private boolean isStraight(List<Card> cardList) {
-        var startFaceValue = cardList.get(0).getFaceValue().getValue();
-        var faceValueList = cardList.stream()
+    private boolean isStraight(List<Card> listCards) {
+        var startFaceValue = listCards.get(0).getFaceValue().getValue();
+        var faceValueList = listCards.stream()
                 .map(e -> e.getFaceValue().getValue()).toList();
 
         var startToEnd = IntStream.range(startFaceValue, startFaceValue + FULL_HAND)
                 .boxed()
                 .toList();
         return faceValueList.equals(startToEnd);
-
     }
 
+    private boolean isThreeOfAKind(List<Card> listCards) {
+        final int THREE_OF_A_KIND = 3;
+        var faceValuesList = listCards.stream()
+                .map(Card::getFaceValue)
+                .toList();
+        return faceValuesList.stream()
+                .anyMatch(i -> Collections.frequency(faceValuesList, i) == THREE_OF_A_KIND);
+    }
 }

@@ -121,4 +121,22 @@ class GameTest {
         game.rankHand(player1);
         assertEquals(HandRank.STRAIGHT, player1.getHandRank());
     }
+
+    @Test
+    void testPlayerHasThreeOfAKind() {
+        var ThreeOfKind = List.of(
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.DIAMOND),
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.TEN, SuitValues.CLUB),
+                new Card(FaceValues.NINE, SuitValues.SPADES)
+        );
+        Hand player1 = new Hand();
+        player1.setHand(ThreeOfKind);
+        Hand player2 = new Hand();
+        player2.setHand(ThreeOfKind);
+        Game game = new Game(player1, player2);
+        game.rankHand(player1);
+        assertEquals(HandRank.THREE_OF_A_KIND, player1.getHandRank());
+    }
 }
