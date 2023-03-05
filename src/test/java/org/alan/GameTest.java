@@ -1,5 +1,6 @@
 package org.alan;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -7,6 +8,64 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameTest {
+
+    private static List<Card> STRAIGHT_FLUSH;
+    private static List<Card> FOUR_OF_A_KIND;
+    private static List<Card> FULL_HOUSE;
+    private static List<Card> FLUSH;
+    private static List<Card> STRAIGHT;
+    private static List<Card> THREE_OF_A_KIND;
+
+    @BeforeAll
+    static void init() {
+        STRAIGHT_FLUSH = List.of(
+                new Card(FaceValues.FIVE, SuitValues.SPADES),
+                new Card(FaceValues.SIX, SuitValues.SPADES),
+                new Card(FaceValues.EIGHT, SuitValues.SPADES),
+                new Card(FaceValues.SEVEN, SuitValues.SPADES),
+                new Card(FaceValues.FOUR, SuitValues.SPADES)
+        );
+
+        FOUR_OF_A_KIND = List.of(
+                new Card(FaceValues.KING, SuitValues.SPADES),
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.KING, SuitValues.CLUB),
+                new Card(FaceValues.FIVE, SuitValues.HEARTS)
+        );
+
+        FULL_HOUSE = List.of(
+                new Card(FaceValues.KING, SuitValues.SPADES),
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.FIVE, SuitValues.DIAMOND),
+                new Card(FaceValues.FIVE, SuitValues.CLUB),
+                new Card(FaceValues.FIVE, SuitValues.HEARTS)
+        );
+
+        FLUSH = List.of(
+                new Card(FaceValues.KING, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.FIVE, SuitValues.SPADES),
+                new Card(FaceValues.FIVE, SuitValues.SPADES),
+                new Card(FaceValues.FIVE, SuitValues.SPADES)
+        );
+
+        STRAIGHT = List.of(
+                new Card(FaceValues.KING, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.DIAMOND),
+                new Card(FaceValues.QUEEN, SuitValues.SPADES),
+                new Card(FaceValues.TEN, SuitValues.CLUB),
+                new Card(FaceValues.NINE, SuitValues.SPADES)
+        );
+
+        THREE_OF_A_KIND = List.of(
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.DIAMOND),
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.TEN, SuitValues.CLUB),
+                new Card(FaceValues.NINE, SuitValues.SPADES)
+        );
+    }
 
     @Test
     void testGetPlayerHands() {
@@ -34,17 +93,11 @@ class GameTest {
 
     @Test
     void testPlayersHandHasStraightFlush() {
-        var straightFlush = List.of(
-                new Card(FaceValues.FIVE, SuitValues.SPADES),
-                new Card(FaceValues.SIX, SuitValues.SPADES),
-                new Card(FaceValues.EIGHT, SuitValues.SPADES),
-                new Card(FaceValues.SEVEN, SuitValues.SPADES),
-                new Card(FaceValues.FOUR, SuitValues.SPADES)
-        );
+
         Hand player1 = new Hand();
-        player1.setHand(straightFlush);
+        player1.setHand(STRAIGHT_FLUSH);
         Hand player2 = new Hand();
-        player2.setHand(straightFlush);
+        player2.setHand(STRAIGHT_FLUSH);
         Game game = new Game(player1, player2);
         game.rankHand(player1);
         assertEquals(HandRank.STRAIGHT_FLUSH, player1.getHandRank());
@@ -52,17 +105,10 @@ class GameTest {
 
     @Test
     void testPlayersHandHasFourOfAKindFlush() {
-        var fourKind = List.of(
-                new Card(FaceValues.KING, SuitValues.SPADES),
-                new Card(FaceValues.KING, SuitValues.DIAMOND),
-                new Card(FaceValues.KING, SuitValues.DIAMOND),
-                new Card(FaceValues.KING, SuitValues.CLUB),
-                new Card(FaceValues.FIVE, SuitValues.HEARTS)
-        );
         Hand player1 = new Hand();
-        player1.setHand(fourKind);
+        player1.setHand(FOUR_OF_A_KIND);
         Hand player2 = new Hand();
-        player2.setHand(fourKind);
+        player2.setHand(FOUR_OF_A_KIND);
         Game game = new Game(player1, player2);
         game.rankHand(player1);
         assertEquals(HandRank.FOUR_OF_A_KIND, player1.getHandRank());
@@ -70,17 +116,10 @@ class GameTest {
 
     @Test
     void testPlayersHandHasFullHouse() {
-        var fullhouse = List.of(
-                new Card(FaceValues.KING, SuitValues.SPADES),
-                new Card(FaceValues.KING, SuitValues.DIAMOND),
-                new Card(FaceValues.FIVE, SuitValues.DIAMOND),
-                new Card(FaceValues.FIVE, SuitValues.CLUB),
-                new Card(FaceValues.FIVE, SuitValues.HEARTS)
-        );
         Hand player1 = new Hand();
-        player1.setHand(fullhouse);
+        player1.setHand(FULL_HOUSE);
         Hand player2 = new Hand();
-        player2.setHand(fullhouse);
+        player2.setHand(FULL_HOUSE);
         Game game = new Game(player1, player2);
         game.rankHand(player1);
         assertEquals(HandRank.FULL_HOUSE, player1.getHandRank());
@@ -88,17 +127,11 @@ class GameTest {
 
     @Test
     void testPlayersHandHasFlush() {
-        var flush = List.of(
-                new Card(FaceValues.KING, SuitValues.SPADES),
-                new Card(FaceValues.JACK, SuitValues.SPADES),
-                new Card(FaceValues.FIVE, SuitValues.SPADES),
-                new Card(FaceValues.FIVE, SuitValues.SPADES),
-                new Card(FaceValues.FIVE, SuitValues.SPADES)
-        );
+
         Hand player1 = new Hand();
-        player1.setHand(flush);
+        player1.setHand(FLUSH);
         Hand player2 = new Hand();
-        player2.setHand(flush);
+        player2.setHand(FLUSH);
         Game game = new Game(player1, player2);
         game.rankHand(player1);
         assertEquals(HandRank.FLUSH, player1.getHandRank());
@@ -106,17 +139,11 @@ class GameTest {
 
     @Test
     void testPlayersHandHasStraight() {
-        var flush = List.of(
-                new Card(FaceValues.KING, SuitValues.SPADES),
-                new Card(FaceValues.JACK, SuitValues.DIAMOND),
-                new Card(FaceValues.QUEEN, SuitValues.SPADES),
-                new Card(FaceValues.TEN, SuitValues.CLUB),
-                new Card(FaceValues.NINE, SuitValues.SPADES)
-        );
+
         Hand player1 = new Hand();
-        player1.setHand(flush);
+        player1.setHand(STRAIGHT);
         Hand player2 = new Hand();
-        player2.setHand(flush);
+        player2.setHand(STRAIGHT);
         Game game = new Game(player1, player2);
         game.rankHand(player1);
         assertEquals(HandRank.STRAIGHT, player1.getHandRank());
@@ -124,17 +151,10 @@ class GameTest {
 
     @Test
     void testPlayerHasThreeOfAKind() {
-        var ThreeOfKind = List.of(
-                new Card(FaceValues.JACK, SuitValues.SPADES),
-                new Card(FaceValues.JACK, SuitValues.DIAMOND),
-                new Card(FaceValues.JACK, SuitValues.SPADES),
-                new Card(FaceValues.TEN, SuitValues.CLUB),
-                new Card(FaceValues.NINE, SuitValues.SPADES)
-        );
         Hand player1 = new Hand();
-        player1.setHand(ThreeOfKind);
+        player1.setHand(THREE_OF_A_KIND);
         Hand player2 = new Hand();
-        player2.setHand(ThreeOfKind);
+        player2.setHand(THREE_OF_A_KIND);
         Game game = new Game(player1, player2);
         game.rankHand(player1);
         assertEquals(HandRank.THREE_OF_A_KIND, player1.getHandRank());
