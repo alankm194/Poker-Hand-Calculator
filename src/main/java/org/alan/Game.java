@@ -25,7 +25,7 @@ public class Game {
     }
 
     public void rankHand(Hand hand) {
-        var listCards = hand.getHand();
+        var listCards = hand.getCards();
         if (isStraightFlush(listCards)) {
             hand.setHandRank(HandRank.STRAIGHT_FLUSH);
         } else if (isFourOfAKind(listCards)) {

@@ -112,8 +112,8 @@ class GameTest {
                 new Card(FaceValues.ACE, SuitValues.DIAMOND)
         ));
         Game game = new Game(player1, player2);
-        assertEquals(player1.getHand(), game.getPlayer1Hand().getHand());
-        assertEquals(player2.getHand(), game.getPlayer2Hand().getHand());
+        assertEquals(player1.getCards(), game.getPlayer1Hand().getCards());
+        assertEquals(player2.getCards(), game.getPlayer2Hand().getCards());
     }
 
     @Test

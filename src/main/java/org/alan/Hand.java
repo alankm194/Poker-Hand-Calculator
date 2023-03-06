@@ -21,7 +21,7 @@ public class Hand {
                 .collect(Collectors.toList());
     }
 
-    public List<Card> getHand() {
+    public List<Card> getCards() {
         return currentHand;
     }
 

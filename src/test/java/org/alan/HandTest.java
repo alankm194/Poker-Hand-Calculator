@@ -25,7 +25,7 @@ class HandTest {
                         new Card(FaceValues.THREE, SuitValues.DIAMOND))
                 .collect(Collectors.toList());
         Hand hand = new Hand(expectedList);
-        assertTrue(hand.getHand().containsAll(expectedList));
+        assertTrue(hand.getCards().containsAll(expectedList));
     }
 
     @Test
@@ -55,7 +55,7 @@ class HandTest {
                 .collect(Collectors.toList());
         var expectedList = cardList.stream().sorted().toList();
         var hand = new Hand(cardList);
-        assertEquals(expectedList, hand.getHand());
+        assertEquals(expectedList, hand.getCards());
     }
 
     @ParameterizedTest
