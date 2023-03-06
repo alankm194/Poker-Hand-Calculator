@@ -32,10 +32,25 @@ public class Game {
 
         if (handRank2.getRank() > handRank1.getRank()) {
             return player2;
-        } else {
+        } else if(handRank1.getRank() > handRank2.getRank()){
             return player1;
+        } else {
+            return getWinnerOfDrawnHand(player1, player2);
         }
     }
+
+    private Player getWinnerOfDrawnHand(Player player1, Player player2) throws IllegalArgumentException {
+        if (player1.getHand().getHandRank() != player2.getHand().getHandRank()) {
+            throw new IllegalArgumentException("Hand Must be of same hand rank");
+        }
+        switch(player1.getHand().getHandRank()) {
+            case STRAIGHT -> {return StraightHandDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2); }
+            default -> {return null;}
+        }
+    }
+
+
+
 
     public void rankHand(Hand hand) {
         var listCards = hand.getCards();
