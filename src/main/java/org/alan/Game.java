@@ -7,20 +7,20 @@ import java.util.stream.IntStream;
 
 public class Game {
 
-    private final Hand player1;
-    private final Hand player2;
+    private final Player player1;
+    private final Player player2;
     private static final int FULL_HAND = 5;
 
-    public Game(Hand player1, Hand player2) {
+    public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
     }
 
-    public Hand getPlayer1Hand() {
+    public Player getPlayer1() {
         return player1;
     }
 
-    public Hand getPlayer2Hand() {
+    public Player getPlayer2() {
         return player2;
     }
 

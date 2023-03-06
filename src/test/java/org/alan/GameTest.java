@@ -19,6 +19,7 @@ class GameTest {
     private static List<Card> PAIR;
     private static List<Card> HIGH_CARD;
 
+    private static Player PLAYER;
 
     @BeforeAll
     static void init() {
@@ -92,108 +93,105 @@ class GameTest {
                 new Card(FaceValues.NINE, SuitValues.CLUB),
                 new Card(FaceValues.THREE, SuitValues.SPADES)
         );
+
+        PLAYER = new Player("player1", new Hand(HIGH_CARD));
     }
 
     @Test
     void testGetPlayerHands() {
 
-        Hand player1 = new Hand(List.of(
+        Hand hand1 = new Hand(List.of(
                 new Card(FaceValues.ACE, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND)
         ));
-        Hand player2 = new Hand(List.of(
+        Hand hand2 = new Hand(List.of(
                 new Card(FaceValues.KING, SuitValues.CLUB),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.DIAMOND)
         ));
+        Player player1 = new Player("player1", hand1);
+        Player player2 = new Player("player2", hand2);
         Game game = new Game(player1, player2);
-        assertEquals(player1.getCards(), game.getPlayer1Hand().getCards());
-        assertEquals(player2.getCards(), game.getPlayer2Hand().getCards());
+        assertEquals(hand1.getCards(), game.getPlayer1().getHand().getCards());
+        assertEquals(hand2.getCards(), game.getPlayer2().getHand().getCards());
+        assertEquals("player1", game.getPlayer1().getName());
+        assertEquals("player2", game.getPlayer2().getName());
     }
 
     @Test
     void testPlayersHandHasStraightFlush() {
         Hand player1 = new Hand(STRAIGHT_FLUSH);
-        Hand player2 = new Hand(STRAIGHT_FLUSH);
-        Game game = new Game(player1, player2);
+        Game game = new Game(PLAYER, PLAYER);
         game.rankHand(player1);
         assertEquals(HandRank.STRAIGHT_FLUSH, player1.getHandRank());
     }
 
     @Test
     void testPlayersHandHasFourOfAKindFlush() {
-        Hand player1 = new Hand(FOUR_OF_A_KIND);
-        Hand player2 = new Hand(FOUR_OF_A_KIND);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.FOUR_OF_A_KIND, player1.getHandRank());
+        Hand hand1 = new Hand(FOUR_OF_A_KIND);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.FOUR_OF_A_KIND, hand1.getHandRank());
     }
 
     @Test
     void testPlayersHandHasFullHouse() {
-        Hand player1 = new Hand(FULL_HOUSE);
-        Hand player2 = new Hand(FULL_HOUSE);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.FULL_HOUSE, player1.getHandRank());
+        Hand hand1 = new Hand(FULL_HOUSE);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.FULL_HOUSE, hand1.getHandRank());
     }
 
     @Test
     void testPlayersHandHasFlush() {
-        Hand player1 = new Hand(FLUSH);
-        Hand player2 = new Hand(FLUSH);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.FLUSH, player1.getHandRank());
+        Hand hand1 = new Hand(FLUSH);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.FLUSH, hand1.getHandRank());
     }
 
     @Test
     void testPlayersHandHasStraight() {
-        Hand player1 = new Hand(STRAIGHT);
-        Hand player2 = new Hand(STRAIGHT);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.STRAIGHT, player1.getHandRank());
+        Hand hand1 = new Hand(STRAIGHT);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.STRAIGHT, hand1.getHandRank());
     }
 
     @Test
     void testPlayerHasThreeOfAKind() {
-        Hand player1 = new Hand(THREE_OF_A_KIND);
-        Hand player2 = new Hand(THREE_OF_A_KIND);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.THREE_OF_A_KIND, player1.getHandRank());
+        Hand hand1 = new Hand(THREE_OF_A_KIND);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.THREE_OF_A_KIND, hand1.getHandRank());
     }
 
     @Test
     void testPlayerHasTwoPair() {
-        Hand player1 = new Hand(TWO_PAIR);
-        Hand player2 = new Hand(TWO_PAIR);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.TWO_PAIR, player1.getHandRank());
+        Hand hand1 = new Hand(TWO_PAIR);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.TWO_PAIR, hand1.getHandRank());
     }
 
     @Test
     void testPlayerHasPair() {
-        Hand player1 = new Hand(PAIR);
-        Hand player2 = new Hand(PAIR);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.PAIR, player1.getHandRank());
+        Hand hand1 = new Hand(PAIR);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.PAIR, hand1.getHandRank());
     }
 
     @Test
     void testPlayerHasCardHigh() {
-        Hand player1 = new Hand(HIGH_CARD);
-        Hand player2 = new Hand(HIGH_CARD);
-        Game game = new Game(player1, player2);
-        game.rankHand(player1);
-        assertEquals(HandRank.HIGH_CARD, player1.getHandRank());
+        Hand hand1 = new Hand(HIGH_CARD);
+        Game game = new Game(PLAYER, PLAYER);
+        game.rankHand(hand1);
+        assertEquals(HandRank.HIGH_CARD, hand1.getHandRank());
     }
 }
