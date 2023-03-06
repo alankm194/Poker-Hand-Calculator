@@ -98,6 +98,16 @@ class GameTest {
     }
 
     @Test
+    void testPlayingHandWithNoDraws() {
+        Player player1 = new Player("player1", new Hand(HIGH_CARD));
+        Player player2 = new Player("player2", new Hand(PAIR));
+        Game game = new Game(player1, player2);
+        Player winner = game.getWinnerOfGame();
+        assertEquals("player2", winner.getName());
+        assertEquals(PAIR.stream().sorted().toList(), winner.getHand().getCards());
+    }
+
+    @Test
     void testGetPlayerHands() {
 
         Hand hand1 = new Hand(List.of(

@@ -24,6 +24,19 @@ public class Game {
         return player2;
     }
 
+    public Player getWinnerOfGame(){
+        rankHand(player1.getHand());
+        rankHand(player2.getHand());
+        var handRank1 = player1.getHand().getHandRank();
+        var handRank2 = player2.getHand().getHandRank();
+
+        if (handRank2.getRank() > handRank1.getRank()) {
+            return player2;
+        } else {
+            return player1;
+        }
+    }
+
     public void rankHand(Hand hand) {
         var listCards = hand.getCards();
         if (isStraightFlush(listCards)) {
