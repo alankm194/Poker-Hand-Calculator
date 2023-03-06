@@ -22,6 +22,12 @@ public class Card implements Comparable<Card> {
         return face;
     }
 
+    public int compareFaceValue(Card o) {
+        return Comparator
+                .comparing(Card::getFaceValue, Comparator.comparingInt(FaceValues::getValue))
+                .compare(this, o);
+    }
+
     @Override
     public String toString() {
         return String.format("face: %s suit: %s", face, suit);

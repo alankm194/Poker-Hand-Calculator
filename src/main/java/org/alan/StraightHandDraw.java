@@ -17,9 +17,9 @@ public enum StraightHandDraw {
         var player1Cards = player1Hand.getCards();
         var player2Cards = player2Hand.getCards();
         for (int i=(HAND_SIZE-1); i >= 0; i--) {
-            if (player1Cards.get(i).compareTo(player2Cards.get(i)) > 0) {
+            if (player1Cards.get(i).compareFaceValue(player2Cards.get(i)) > 0) {
                 return player1;
-            } else if (player1Cards.get(i).compareTo(player2Cards.get(i)) < 0) {
+            } else if (player1Cards.get(i).compareFaceValue(player2Cards.get(i)) < 0) {
                 return player2;
             }
         }
