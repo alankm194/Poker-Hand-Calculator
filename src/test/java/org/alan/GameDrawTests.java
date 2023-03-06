@@ -9,6 +9,55 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GameDrawTests {
 
+    @Test
+    void whenTwoHandsAreFlushs_findWinnerWithHighCard() {
+
+        var straightListWinner = List.of(
+                new Card(FaceValues.ACE, SuitValues.SPADES),
+                new Card(FaceValues.EIGHT, SuitValues.SPADES),
+                new Card(FaceValues.QUEEN, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.NINE, SuitValues.SPADES)
+        );
+        var straightListLoser = List.of(
+                new Card(FaceValues.ACE, SuitValues.DIAMOND),
+                new Card(FaceValues.FIVE, SuitValues.DIAMOND),
+                new Card(FaceValues.FOUR, SuitValues.DIAMOND),
+                new Card(FaceValues.SIX, SuitValues.DIAMOND),
+                new Card(FaceValues.SEVEN, SuitValues.DIAMOND)
+        );
+        Player player1 = new Player("player1", new Hand(straightListLoser));
+        Player player2 = new Player("player2", new Hand(straightListWinner));
+        Game game = new Game(player1, player2);
+        Player winner = game.getWinnerOfGame();
+
+        assertEquals(player2, winner);
+    }
+
+    @Test
+    void whenTwoHandsAreFlushs_returnNull() {
+
+        var straightListWinner = List.of(
+                new Card(FaceValues.ACE, SuitValues.SPADES),
+                new Card(FaceValues.EIGHT, SuitValues.SPADES),
+                new Card(FaceValues.QUEEN, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.NINE, SuitValues.SPADES)
+        );
+        var straightListLoser = List.of(
+                new Card(FaceValues.ACE, SuitValues.DIAMOND),
+                new Card(FaceValues.EIGHT, SuitValues.DIAMOND),
+                new Card(FaceValues.QUEEN, SuitValues.DIAMOND),
+                new Card(FaceValues.JACK, SuitValues.DIAMOND),
+                new Card(FaceValues.NINE, SuitValues.DIAMOND)
+        );
+        Player player1 = new Player("player1", new Hand(straightListLoser));
+        Player player2 = new Player("player2", new Hand(straightListWinner));
+        Game game = new Game(player1, player2);
+        Player winner = game.getWinnerOfGame();
+
+        assertNull( winner);
+    }
 
     @Test
     void whenTwoHandsAreStraights_findWinnerWithHighCard() {

@@ -1,6 +1,9 @@
-package org.alan;
+package org.alan.drawnhand;
 
-public enum StraightHandDraw {
+import org.alan.HandRank;
+import org.alan.Player;
+
+public enum StraightDraw {
     INSTANCE;
     private static final int HAND_SIZE = 5;
 

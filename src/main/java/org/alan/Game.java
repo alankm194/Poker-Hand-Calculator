@@ -1,5 +1,8 @@
 package org.alan;
 
+import org.alan.drawnhand.FlushDraw;
+import org.alan.drawnhand.StraightDraw;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -44,12 +47,11 @@ public class Game {
             throw new IllegalArgumentException("Hand Must be of same hand rank");
         }
         switch(player1.getHand().getHandRank()) {
-            case STRAIGHT -> {return StraightHandDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2); }
+            case FLUSH -> {return FlushDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2);}
+            case STRAIGHT -> {return StraightDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2); }
             default -> {return null;}
         }
     }
-
-
 
 
     public void rankHand(Hand hand) {
