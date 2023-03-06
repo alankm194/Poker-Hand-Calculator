@@ -1,6 +1,7 @@
 package org.alan;
 
 import org.alan.drawnhand.FlushDraw;
+import org.alan.drawnhand.HighCardDraw;
 import org.alan.drawnhand.StraightDraw;
 
 import java.util.Collections;
@@ -49,6 +50,7 @@ public class Game {
         switch(player1.getHand().getHandRank()) {
             case FLUSH -> {return FlushDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2);}
             case STRAIGHT -> {return StraightDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2); }
+            case HIGH_CARD -> {return HighCardDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2);}
             default -> {return null;}
         }
     }
