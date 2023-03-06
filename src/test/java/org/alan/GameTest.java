@@ -2,8 +2,11 @@ package org.alan;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,6 +23,8 @@ class GameTest {
     private static List<Card> HIGH_CARD;
 
     private static Player PLAYER;
+
+    private static Map<String, List<Card>> handsMap;
 
     @BeforeAll
     static void init() {
@@ -93,18 +98,34 @@ class GameTest {
                 new Card(FaceValues.NINE, SuitValues.CLUB),
                 new Card(FaceValues.THREE, SuitValues.SPADES)
         );
+        handsMap = Map.of(
+                "STRAIGHT_FLUSH", STRAIGHT_FLUSH,
+                "FOUR_OF_A_KIND", FOUR_OF_A_KIND,
+                "FULL_HOUSE", FULL_HOUSE,
+                "FLUSH", FLUSH,
+                "STRAIGHT", STRAIGHT,
+                "THREE_OF_A_KIND", THREE_OF_A_KIND,
+                "TWO_PAIR", TWO_PAIR,
+                "PAIR", PAIR,
+                "HIGH_CARD", HIGH_CARD
+        );
 
         PLAYER = new Player("player1", new Hand(HIGH_CARD));
     }
 
-    @Test
-    void testPlayingHandWithNoDraws() {
-        Player player1 = new Player("player1", new Hand(HIGH_CARD));
-        Player player2 = new Player("player2", new Hand(PAIR));
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testFindWinnerNoDraws.csv", numLinesToSkip = 1)
+    void testPlayingHandWithNoDraws_thenFindCorrectWinner(String winnerHand, String loserHand) {
+        Player player1 = new Player("player1", new Hand(handsMap.get(loserHand)));
+        Player player2 = new Player("player2", new Hand(handsMap.get(winnerHand)));
         Game game = new Game(player1, player2);
         Player winner = game.getWinnerOfGame();
         assertEquals("player2", winner.getName());
-        assertEquals(PAIR.stream().sorted().toList(), winner.getHand().getCards());
+        assertEquals(handsMap.get(winnerHand)
+                        .stream()
+                        .sorted()
+                        .toList(),
+                winner.getHand().getCards());
     }
 
     @Test
