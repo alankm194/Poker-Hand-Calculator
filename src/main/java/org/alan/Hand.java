@@ -10,12 +10,7 @@ public class Hand {
 
     private HandRank handRank;
 
-
-    public List<Card> getHand() {
-        return currentHand;
-    }
-
-    public void setHand(List<Card> currentHand) {
+    public Hand(List<Card> currentHand) {
         if (currentHand.size() > MAX_HAND) {
             throw new IllegalArgumentException("A legal hand must be 5 cards");
         }
@@ -25,6 +20,11 @@ public class Hand {
                 .sorted()
                 .collect(Collectors.toList());
     }
+
+    public List<Card> getHand() {
+        return currentHand;
+    }
+
     public HandRank getHandRank() {
         return handRank;
     }

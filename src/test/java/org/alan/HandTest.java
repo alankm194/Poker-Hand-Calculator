@@ -17,7 +17,6 @@ class HandTest {
 
     @Test
     void testGetCardsFromHand() {
-        Hand hand = new Hand();
         var expectedList = Stream.of(
                         new Card(FaceValues.ACE, SuitValues.SPADES),
                         new Card(FaceValues.FOUR, SuitValues.HEARTS),
@@ -25,14 +24,13 @@ class HandTest {
                         new Card(FaceValues.JACK, SuitValues.CLUB),
                         new Card(FaceValues.THREE, SuitValues.DIAMOND))
                 .collect(Collectors.toList());
-        hand.setHand(expectedList);
-        assertTrue( hand.getHand().containsAll(expectedList));
+        Hand hand = new Hand(expectedList);
+        assertTrue(hand.getHand().containsAll(expectedList));
     }
 
     @Test
     @DisplayName("Throw illegalArgumentException when trying to set a Hand with more than 5 cards")
     void whenHandIsGivenListOver5Cards_ThrowIllegalArgumentException() {
-        var hand = new Hand();
         var cardsList = new ArrayList<Card>();
         for (int i = 0; i < 6; i++) {
             cardsList.add(new Card(FaceValues.ACE, SuitValues.SPADES));
@@ -40,7 +38,7 @@ class HandTest {
 
         IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> hand.setHand(cardsList),
+                () -> new Hand(cardsList),
                 "Hand cannot set hand of more than 5 cards."
         );
         assertEquals("A legal hand must be 5 cards", thrown.getMessage());
@@ -48,7 +46,6 @@ class HandTest {
 
     @Test
     void whenSettingHandTest_ensureHandIsSorted() {
-        var hand = new Hand();
         List<Card> cardList = Stream.of(
                         new Card(FaceValues.ACE, SuitValues.SPADES),
                         new Card(FaceValues.FOUR, SuitValues.HEARTS),
@@ -57,14 +54,20 @@ class HandTest {
                         new Card(FaceValues.THREE, SuitValues.DIAMOND))
                 .collect(Collectors.toList());
         var expectedList = cardList.stream().sorted().toList();
-        hand.setHand(cardList);
+        var hand = new Hand(cardList);
         assertEquals(expectedList, hand.getHand());
     }
 
     @ParameterizedTest
     @CsvSource({"FOUR_OF_A_KIND", "STRAIGHT_FLUSH", "FLUSH", "HIGH_CARD"})
     void testAssignHandRank(String handRank) {
-        Hand hand = new Hand();
+        Hand hand = new Hand(List.of(
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.KING, SuitValues.DIAMOND),
+                new Card(FaceValues.KING, SuitValues.DIAMOND)
+        ));
         hand.setHandRank(HandRank.valueOf(handRank));
         assertEquals(HandRank.valueOf(handRank), hand.getHandRank());
     }

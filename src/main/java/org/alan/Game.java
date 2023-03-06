@@ -9,7 +9,6 @@ public class Game {
 
     private final Hand player1;
     private final Hand player2;
-    private HandRank handRank;
     private static final int FULL_HAND = 5;
 
     public Game(Hand player1, Hand player2) {
@@ -43,6 +42,8 @@ public class Game {
             hand.setHandRank(HandRank.TWO_PAIR);
         } else if (isPair(listCards)) {
             hand.setHandRank(HandRank.PAIR);
+        } else {
+            hand.setHandRank(HandRank.HIGH_CARD);
         }
     }
 
