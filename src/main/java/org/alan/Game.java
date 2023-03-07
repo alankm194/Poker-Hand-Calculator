@@ -3,6 +3,7 @@ package org.alan;
 import org.alan.drawnhand.FlushDraw;
 import org.alan.drawnhand.HighCardDraw;
 import org.alan.drawnhand.StraightDraw;
+import org.alan.drawnhand.StraightFlushDraw;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,6 +49,7 @@ public class Game {
             throw new IllegalArgumentException("Hand Must be of same hand rank");
         }
         switch(player1.getHand().getHandRank()) {
+            case STRAIGHT_FLUSH -> {return StraightFlushDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2);}
             case FLUSH -> {return FlushDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2);}
             case STRAIGHT -> {return StraightDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2); }
             case HIGH_CARD -> {return HighCardDraw.INSTANCE.calculateWinnerFromHandDraw(player1, player2);}
