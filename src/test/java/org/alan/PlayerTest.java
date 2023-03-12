@@ -1,5 +1,8 @@
 package org.alan;
 
+import org.alan.card.Card;
+import org.alan.card.FaceValues;
+import org.alan.card.SuitValues;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,15 +14,16 @@ public class PlayerTest {
 
     @Test
     void testGetHand() {
-        Hand hand1 = new Hand(List.of(
+        var listCards = List.of(
                 new Card(FaceValues.KING, SuitValues.DIAMOND),
                 new Card(FaceValues.KING, SuitValues.DIAMOND),
                 new Card(FaceValues.KING, SuitValues.DIAMOND),
                 new Card(FaceValues.KING, SuitValues.DIAMOND),
                 new Card(FaceValues.KING, SuitValues.DIAMOND)
-                ));
-        Player player1 = new Player("white", hand1);
-        assertEquals(hand1.getCards(), player1.getHand().getCards());
+                );
+
+        Player player1 = new Player("white", new RankHand().rankHand(listCards));
+        assertEquals(listCards, player1.getHand().getCards());
         assertEquals("white", player1.getName());
     }
 }

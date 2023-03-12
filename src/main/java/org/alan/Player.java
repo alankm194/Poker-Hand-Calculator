@@ -1,9 +1,11 @@
 package org.alan;
 
+import org.alan.hands.Hand;
+
 public class Player {
 
-    private String name;
-    private Hand hand;
+    private final String name;
+    private final Hand hand;
     public Player(String name, Hand hand) {
         this.name = name;
         this.hand = hand;

@@ -3,23 +3,31 @@ package org.alan;
 import org.alan.card.Card;
 import org.alan.card.FaceValues;
 import org.alan.card.SuitValues;
+import org.alan.hands.Hand;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GameTest {
+public class RankHandTest {
 
+    private static List<Card> STRAIGHT_FLUSH;
+    private static List<Card> FOUR_OF_A_KIND;
+    private static List<Card> FULL_HOUSE;
+    private static List<Card> FLUSH;
+    private static List<Card> STRAIGHT;
+    private static List<Card> THREE_OF_A_KIND;
+    private static List<Card> TWO_PAIR;
+    private static List<Card> PAIR;
+    private static List<Card> HIGH_CARD;
 
-    private static Map<String, List<Card>> handsMap;
-
+    private RankHand rankHand;
     @BeforeAll
-    static void init() {
-        List<Card> STRAIGHT_FLUSH = List.of(
+    static void initBeforeAll() {
+        STRAIGHT_FLUSH = List.of(
                 new Card(FaceValues.FIVE, SuitValues.SPADES),
                 new Card(FaceValues.SIX, SuitValues.SPADES),
                 new Card(FaceValues.EIGHT, SuitValues.SPADES),
@@ -27,7 +35,7 @@ class GameTest {
                 new Card(FaceValues.FOUR, SuitValues.SPADES)
         );
 
-        List<Card> FOUR_OF_A_KIND = List.of(
+        FOUR_OF_A_KIND = List.of(
                 new Card(FaceValues.KING, SuitValues.SPADES),
                 new Card(FaceValues.KING, SuitValues.DIAMOND),
                 new Card(FaceValues.KING, SuitValues.DIAMOND),
@@ -35,7 +43,7 @@ class GameTest {
                 new Card(FaceValues.FIVE, SuitValues.HEARTS)
         );
 
-        List<Card> FULL_HOUSE = List.of(
+        FULL_HOUSE = List.of(
                 new Card(FaceValues.KING, SuitValues.SPADES),
                 new Card(FaceValues.KING, SuitValues.DIAMOND),
                 new Card(FaceValues.FIVE, SuitValues.DIAMOND),
@@ -43,7 +51,7 @@ class GameTest {
                 new Card(FaceValues.FIVE, SuitValues.HEARTS)
         );
 
-        List<Card> FLUSH = List.of(
+        FLUSH = List.of(
                 new Card(FaceValues.KING, SuitValues.SPADES),
                 new Card(FaceValues.JACK, SuitValues.SPADES),
                 new Card(FaceValues.FIVE, SuitValues.SPADES),
@@ -51,7 +59,7 @@ class GameTest {
                 new Card(FaceValues.FIVE, SuitValues.SPADES)
         );
 
-        List<Card> STRAIGHT = List.of(
+        STRAIGHT = List.of(
                 new Card(FaceValues.KING, SuitValues.SPADES),
                 new Card(FaceValues.JACK, SuitValues.DIAMOND),
                 new Card(FaceValues.QUEEN, SuitValues.SPADES),
@@ -59,7 +67,7 @@ class GameTest {
                 new Card(FaceValues.NINE, SuitValues.SPADES)
         );
 
-        List<Card> THREE_OF_A_KIND = List.of(
+        THREE_OF_A_KIND = List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
                 new Card(FaceValues.JACK, SuitValues.DIAMOND),
                 new Card(FaceValues.JACK, SuitValues.SPADES),
@@ -67,14 +75,14 @@ class GameTest {
                 new Card(FaceValues.NINE, SuitValues.SPADES)
         );
 
-        List<Card> TWO_PAIR = List.of(
+        TWO_PAIR = List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
                 new Card(FaceValues.JACK, SuitValues.DIAMOND),
                 new Card(FaceValues.ACE, SuitValues.SPADES),
                 new Card(FaceValues.ACE, SuitValues.CLUB),
                 new Card(FaceValues.NINE, SuitValues.SPADES)
         );
-        List<Card> PAIR = List.of(
+        PAIR = List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
                 new Card(FaceValues.SEVEN, SuitValues.DIAMOND),
                 new Card(FaceValues.EIGHT, SuitValues.SPADES),
@@ -82,35 +90,71 @@ class GameTest {
                 new Card(FaceValues.NINE, SuitValues.SPADES)
         );
 
-        List<Card> HIGH_CARD = List.of(
+        HIGH_CARD = List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
                 new Card(FaceValues.SEVEN, SuitValues.DIAMOND),
                 new Card(FaceValues.EIGHT, SuitValues.SPADES),
                 new Card(FaceValues.NINE, SuitValues.CLUB),
                 new Card(FaceValues.THREE, SuitValues.SPADES)
         );
-        handsMap = Map.of(
-                "STRAIGHT_FLUSH", STRAIGHT_FLUSH,
-                "FOUR_OF_A_KIND", FOUR_OF_A_KIND,
-                "FULL_HOUSE", FULL_HOUSE,
-                "FLUSH", FLUSH,
-                "STRAIGHT", STRAIGHT,
-                "THREE_OF_A_KIND", THREE_OF_A_KIND,
-                "TWO_PAIR", TWO_PAIR,
-                "PAIR", PAIR,
-                "HIGH_CARD", HIGH_CARD
-        );
-
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/GameTestWinnersNoDraws.csv", numLinesToSkip = 1)
-    void testGettingWinnerWithNoDraws(String winnerHand, String loserHand) {
-        Player expectedLoser = new Player("Player 1", new RankHand().rankHand(handsMap.get(loserHand)));
-        Player expectedWinner = new Player("Player 2", new RankHand().rankHand(handsMap.get(winnerHand)));
-        Game game = new Game();
-        Player winner = game.getWinnerOfGame(expectedWinner, expectedLoser);
-        assertEquals(expectedWinner, winner);
-        assertEquals("Player 2", winner.getName());
+    @BeforeEach
+    void initBeforeEach(){
+        rankHand = new RankHand();
+    }
+
+    @Test
+    void testPlayersHandHasStraightFlush() {
+        Hand straightFlush = rankHand.rankHand(STRAIGHT_FLUSH);
+        assertEquals(HandRank.STRAIGHT_FLUSH, straightFlush.getHandRank());
+    }
+
+    @Test
+    void testPlayersHandHasFourOfAKindFlush() {
+        Hand fourOfAKind = rankHand.rankHand(FOUR_OF_A_KIND);
+        assertEquals(HandRank.FOUR_OF_A_KIND, fourOfAKind.getHandRank());
+    }
+
+    @Test
+    void testPlayersHandHasFullHouse() {
+        Hand fullHouse = rankHand.rankHand(FULL_HOUSE);
+        assertEquals(HandRank.FULL_HOUSE, fullHouse.getHandRank());
+    }
+
+    @Test
+    void testPlayersHandHasFlush() {
+        Hand flush = rankHand.rankHand(FLUSH);
+        assertEquals(HandRank.FLUSH, flush.getHandRank());
+    }
+
+    @Test
+    void testPlayersHandHasStraight() {
+        Hand straight = rankHand.rankHand(STRAIGHT);
+        assertEquals(HandRank.STRAIGHT, straight.getHandRank());
+    }
+
+    @Test
+    void testPlayerHasThreeOfAKind() {
+        Hand threeOfAKind = rankHand.rankHand(THREE_OF_A_KIND);
+        assertEquals(HandRank.THREE_OF_A_KIND, threeOfAKind.getHandRank());
+    }
+
+    @Test
+    void testPlayerHasTwoPair() {
+        Hand twoPair = rankHand.rankHand(TWO_PAIR);
+        assertEquals(HandRank.TWO_PAIR, twoPair.getHandRank());
+    }
+//
+    @Test
+    void testPlayerHasPair() {
+        Hand Pair = rankHand.rankHand(PAIR);
+        assertEquals(HandRank.PAIR, Pair.getHandRank());
+    }
+
+    @Test
+    void testPlayerHasCardHigh() {
+        Hand highCard = rankHand.rankHand(HIGH_CARD);
+        assertEquals(HandRank.HIGH_CARD, highCard.getHandRank());
     }
 }

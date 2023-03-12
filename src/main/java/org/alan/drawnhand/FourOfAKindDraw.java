@@ -1,6 +1,6 @@
 package org.alan.drawnhand;
 
-import org.alan.Card;
+import org.alan.card.Card;
 import org.alan.HandRank;
 import org.alan.Player;
 

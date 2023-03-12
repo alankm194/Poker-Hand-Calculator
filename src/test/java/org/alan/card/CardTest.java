@@ -1,4 +1,4 @@
-package org.alan;
+package org.alan.card;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

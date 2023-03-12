@@ -1,13 +1,13 @@
-package org.alan;
+package org.alan.card;
 
 import java.util.Comparator;
 import java.util.Objects;
 
 public class Card implements Comparable<Card> {
 
-    private FaceValues face;
+    private final FaceValues face;
 
-    private SuitValues suit;
+    private final SuitValues suit;
 
     public Card(FaceValues face, SuitValues suit) {
         this.face = face;
