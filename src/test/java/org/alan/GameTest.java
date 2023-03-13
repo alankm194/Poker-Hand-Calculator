@@ -113,6 +113,6 @@ class GameTest {
         Game game = new Game();
         Player winner = game.getWinnerOfGame(expectedWinner, expectedLoser);
         assertEquals(expectedWinner, winner);
-        assertEquals("Player 2", winner.getName());
+        assertEquals("Player 2", winner.name());
     }
 }

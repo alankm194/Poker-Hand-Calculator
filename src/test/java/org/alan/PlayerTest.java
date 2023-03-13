@@ -24,7 +24,7 @@ public class PlayerTest {
                 );
 
         Player player1 = new Player("white", new RankHand().rankHand(listCards));
-        assertEquals(listCards, player1.getHand().getCards());
-        assertEquals("white", player1.getName());
+        assertEquals(listCards, player1.hand().getCards());
+        assertEquals("white", player1.name());
     }
 }

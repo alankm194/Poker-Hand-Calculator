@@ -6,8 +6,8 @@ import org.alan.exceptions.InvalidHandException;
 public class Game {
 
     public Player getWinnerOfGame(Player player1, Player player2) throws InvalidHandException {
-        var player1Hand = player1.getHand();
-        var player2Hand = player2.getHand();
+        var player1Hand = player1.hand();
+        var player2Hand = player2.hand();
 
         if (player1Hand.compareHands(player2Hand) > 0) {
             return player1;

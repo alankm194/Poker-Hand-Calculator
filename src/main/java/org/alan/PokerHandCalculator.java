@@ -44,9 +44,9 @@ public class PokerHandCalculator {
         var player2 = new Player(PLAYER_2, rankHand.rankHand(player2CardList));
         var winner = new Game().getWinnerOfGame(player1, player2);
         if (winner == null) {
-            return String.format("Both hands have drawn with %s%n", player1.getHand().getHandRank());
+            return String.format("Both hands have drawn with %s%n", player1.hand().getHandRank());
         } else {
-            return String.format("the winner is %s with %s%n", winner.getName(), winner.getHand().getHandRank());
+            return String.format("the winner is %s with %s%n", winner.name(), winner.hand().getHandRank());
         }
     }
 
