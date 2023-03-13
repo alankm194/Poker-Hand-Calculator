@@ -4,6 +4,7 @@ package org.alan;
 import org.alan.card.Card;
 import org.alan.card.FaceValues;
 import org.alan.card.SuitValues;
+import org.alan.exceptions.InvalidHandException;
 import org.alan.hands.RankHand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class GameDrawTests {
         rankHand = new RankHand();
     }
     @Test
-    void whenTwoHandsAreStraightFlushAndBothHandsEqual_returnNull() {
+    void whenTwoHandsAreStraightFlushAndBothHandsEqual_returnNull() throws InvalidHandException {
 
         var straightFlushList1 = List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
@@ -43,7 +44,7 @@ public class GameDrawTests {
         assertNull(winner);
     }
     @Test
-    void whenTwoHandsAreStraightFlush_findWinnerWithHighCard() {
+    void whenTwoHandsAreStraightFlush_findWinnerWithHighCard() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
@@ -66,7 +67,7 @@ public class GameDrawTests {
         assertEquals(player2, winner);
     }
     @Test
-    void whenTwoHandsAreHighCard_findWinnerWithHighCard() {
+    void whenTwoHandsAreHighCard_findWinnerWithHighCard() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
@@ -90,7 +91,7 @@ public class GameDrawTests {
         assertEquals(player2, winner);
     }
     @Test
-    void whenTwoHandsAreHighCardAndBothHandsEqual_returnNull() {
+    void whenTwoHandsAreHighCardAndBothHandsEqual_returnNull() throws InvalidHandException {
 
         var straightList1= List.of(
                 new Card(FaceValues.JACK, SuitValues.SPADES),
@@ -114,7 +115,7 @@ public class GameDrawTests {
         assertNull(winner );
     }
     @Test
-    void whenTwoHandsAreFlushs_findWinnerWithHighCard() {
+    void whenTwoHandsAreFlushs_findWinnerWithHighCard() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.ACE, SuitValues.SPADES),
@@ -139,7 +140,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreFlushsAndBothHAndsAreEqual_returnNull() {
+    void whenTwoHandsAreFlushsAndBothHAndsAreEqual_returnNull() throws InvalidHandException {
 
         var straightList1 = List.of(
                 new Card(FaceValues.ACE, SuitValues.SPADES),
@@ -164,7 +165,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreStraights_findWinnerWithHighCard() {
+    void whenTwoHandsAreStraights_findWinnerWithHighCard() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.KING, SuitValues.SPADES),
@@ -189,7 +190,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreStraightsAndBothAreEqual_ReturnNull() {
+    void whenTwoHandsAreStraightsAndBothAreEqual_ReturnNull() throws InvalidHandException {
 
         var straightListDraw1 = List.of(
                 new Card(FaceValues.KING, SuitValues.SPADES),
@@ -214,7 +215,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAre4OfAKinds_FindWinner() {
+    void whenTwoHandsAre4OfAKinds_FindWinner() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.KING, SuitValues.SPADES),
@@ -239,7 +240,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAre4OfAKindsAndBothHAndsEqual_ReturnNull() {
+    void whenTwoHandsAre4OfAKindsAndBothHAndsEqual_ReturnNull() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.TEN, SuitValues.HEARTS),
@@ -264,7 +265,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsArePair_thenReturnWinner() {
+    void whenTwoHandsArePair_thenReturnWinner() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.TEN, SuitValues.HEARTS),
@@ -289,7 +290,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsArePairAndIsDraw_thenReturnNull() {
+    void whenTwoHandsArePairAndIsDraw_thenReturnNull() throws InvalidHandException {
 
         var straightListdraw1 = List.of(
                 new Card(FaceValues.TEN, SuitValues.HEARTS),
@@ -314,7 +315,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreFullHouse_thenReturnWinner() {
+    void whenTwoHandsAreFullHouse_thenReturnWinner() throws InvalidHandException {
 
         var straightListWinner = List.of(
                 new Card(FaceValues.ACE, SuitValues.HEARTS),
@@ -339,7 +340,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreFullHouseAndBothDraw_thenReturnNull() {
+    void whenTwoHandsAreFullHouseAndBothDraw_thenReturnNull() throws InvalidHandException {
 
         var straightListDraw1 = List.of(
                 new Card(FaceValues.ACE, SuitValues.HEARTS),
@@ -363,7 +364,7 @@ public class GameDrawTests {
         assertNull(winner);
     }
     @Test
-    void whenTwoHandsAreTwoPair_thenReturnWinner() {
+    void whenTwoHandsAreTwoPair_thenReturnWinner() throws InvalidHandException {
 
         var straightListWinner= List.of(
                 new Card(FaceValues.ACE, SuitValues.HEARTS),
@@ -388,7 +389,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreTwoPairAndBothDraws_thenReturnNull() {
+    void whenTwoHandsAreTwoPairAndBothDraws_thenReturnNull() throws InvalidHandException {
 
         var straightListDraw1= List.of(
                 new Card(FaceValues.ACE, SuitValues.HEARTS),
@@ -413,7 +414,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreThreeOfAKind_thenReturnWinner() {
+    void whenTwoHandsAreThreeOfAKind_thenReturnWinner() throws InvalidHandException {
 
         var straightListWinner= List.of(
                 new Card(FaceValues.FIVE, SuitValues.HEARTS),
@@ -438,7 +439,7 @@ public class GameDrawTests {
     }
 
     @Test
-    void whenTwoHandsAreThreeOfAKindAndBothDraw_thenReturnNull() {
+    void whenTwoHandsAreThreeOfAKindAndBothDraw_thenReturnNull() throws InvalidHandException {
 
         var straightListDraw1= List.of(
                 new Card(FaceValues.FIVE, SuitValues.HEARTS),

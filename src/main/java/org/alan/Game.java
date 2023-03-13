@@ -1,9 +1,11 @@
 package org.alan;
 
 
+import org.alan.exceptions.InvalidHandException;
+
 public class Game {
 
-    public Player getWinnerOfGame(Player player1, Player player2) {
+    public Player getWinnerOfGame(Player player1, Player player2) throws InvalidHandException {
         var player1Hand = player1.getHand();
         var player2Hand = player2.getHand();
 

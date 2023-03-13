@@ -3,6 +3,7 @@ package org.alan;
 import org.alan.card.Card;
 import org.alan.card.FaceValues;
 import org.alan.card.SuitValues;
+import org.alan.exceptions.InvalidHandException;
 import org.alan.hands.RankHand;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -106,7 +107,7 @@ class GameTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/GameTestWinnersNoDraws.csv", numLinesToSkip = 1)
-    void testGettingWinnerWithNoDraws(String winnerHand, String loserHand) {
+    void testGettingWinnerWithNoDraws(String winnerHand, String loserHand) throws InvalidHandException {
         Player expectedLoser = new Player("Player 1", new RankHand().rankHand(handsMap.get(loserHand)));
         Player expectedWinner = new Player("Player 2", new RankHand().rankHand(handsMap.get(winnerHand)));
         Game game = new Game();
