@@ -3,11 +3,18 @@ package org.alan.hands;
 import org.alan.card.Card;
 import org.alan.HandRank;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FullHouseHand extends Hand{
 
     private static final HandRank FULL_HOUSE_HAND_RANK = HandRank.FULL_HOUSE;
+
+    private static final int TRIPLE = 3;
+
+    private static final int PAIR = 2;
+
 
     public FullHouseHand(List<Card> currentHand) {
         super(currentHand);
@@ -26,7 +33,55 @@ public class FullHouseHand extends Hand{
             return -1;
         }
 
-        //TODO implement draw
+        var myCards = this.getCards().stream().map(Card::getFaceValue).toList();
+        var opponentsCards = opponentsHand.getCards().stream().map(Card::getFaceValue).toList();
+
+        var myPairAndTripleMap = myCards
+                .stream()
+                .collect(Collectors.groupingBy(a -> Collections.frequency(myCards, a)));
+
+        var opponentsPairAndTriple = opponentsCards
+                .stream()
+                .collect(Collectors.groupingBy(a -> Collections.frequency(opponentsCards, a)));
+
+        var myTripleValue = myPairAndTripleMap
+                .get(TRIPLE)
+                .stream()
+                .distinct()
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+
+        var opponentTripleValue = opponentsPairAndTriple
+                .get(TRIPLE)
+                .stream()
+                .distinct()
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+
+        if (myTripleValue.compareTo(opponentTripleValue) > 0) {
+            return 1;
+        } else if(myTripleValue.compareTo(opponentTripleValue) < 0) {
+            return -1;
+        }
+
+        var myPairValue = myPairAndTripleMap
+                .get(PAIR)
+                .stream()
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+
+        var opponentPairValue = opponentsPairAndTriple
+                .get(PAIR)
+                .stream()
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+
+        if (myPairValue.compareTo(opponentPairValue) > 0) {
+            return 1;
+        } else if(myPairValue.compareTo(opponentPairValue) < 0) {
+            return -1;
+        }
+
         return 0;
     }
 

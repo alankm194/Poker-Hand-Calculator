@@ -311,4 +311,55 @@ public class GameDrawTests {
 
         assertNull(winner);
     }
+
+    @Test
+    void whenTwoHandsAreFullHouse_thenReturnWinner() {
+
+        var straightListWinner = List.of(
+                new Card(FaceValues.ACE, SuitValues.HEARTS),
+                new Card(FaceValues.ACE, SuitValues.CLUB),
+                new Card(FaceValues.ACE, SuitValues.HEARTS),
+                new Card(FaceValues.THREE, SuitValues.CLUB),
+                new Card(FaceValues.THREE, SuitValues.SPADES)
+        );
+        var straightListLoser= List.of(
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.JACK, SuitValues.HEARTS),
+                new Card(FaceValues.JACK, SuitValues.SPADES),
+                new Card(FaceValues.NINE, SuitValues.CLUB),
+                new Card(FaceValues.NINE, SuitValues.SPADES)
+        );
+        Player player1 = new Player("player1", rankHand.rankHand(straightListLoser));
+        Player player2 = new Player("player2", rankHand.rankHand(straightListWinner));
+        Game game = new Game();
+        Player winner = game.getWinnerOfGame(player1, player2);
+
+        assertEquals(player2, winner);
+    }
+
+    @Test
+    void whenTwoHandsAreFullHouseAndBothDraw_thenReturnNull() {
+
+        var straightListDraw1 = List.of(
+                new Card(FaceValues.ACE, SuitValues.HEARTS),
+                new Card(FaceValues.ACE, SuitValues.CLUB),
+                new Card(FaceValues.ACE, SuitValues.HEARTS),
+                new Card(FaceValues.THREE, SuitValues.CLUB),
+                new Card(FaceValues.THREE, SuitValues.SPADES)
+        );
+        var straightListDraw2 = List.of(
+                new Card(FaceValues.ACE, SuitValues.SPADES),
+                new Card(FaceValues.ACE, SuitValues.HEARTS),
+                new Card(FaceValues.ACE, SuitValues.SPADES),
+                new Card(FaceValues.THREE, SuitValues.CLUB),
+                new Card(FaceValues.THREE, SuitValues.SPADES)
+        );
+        Player player1 = new Player("player1", rankHand.rankHand(straightListDraw1));
+        Player player2 = new Player("player2", rankHand.rankHand(straightListDraw2));
+        Game game = new Game();
+        Player winner = game.getWinnerOfGame(player1, player2);
+
+        assertNull(winner);
+    }
+
 }
