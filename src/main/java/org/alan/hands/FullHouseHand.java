@@ -1,7 +1,7 @@
 package org.alan.hands;
 
 import org.alan.card.Card;
-import org.alan.HandRank;
+import org.alan.exceptions.InvalidHandException;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +26,7 @@ public class FullHouseHand extends Hand{
     }
 
     @Override
-    public int compareHands(Hand opponentsHand) {
+    public int compareHands(Hand opponentsHand) throws InvalidHandException {
         if (FULL_HOUSE_HAND_RANK.getRank() > opponentsHand.getHandRank().getRank()) {
             return 1;
         } else if (FULL_HOUSE_HAND_RANK.getRank() < opponentsHand.getHandRank().getRank()) {
@@ -49,14 +49,14 @@ public class FullHouseHand extends Hand{
                 .stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(this));
 
         var opponentTripleValue = opponentsPairAndTriple
                 .get(TRIPLE)
                 .stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(opponentsHand));
 
         if (myTripleValue.compareTo(opponentTripleValue) > 0) {
             return 1;
@@ -68,13 +68,13 @@ public class FullHouseHand extends Hand{
                 .get(PAIR)
                 .stream()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(this));
 
         var opponentPairValue = opponentsPairAndTriple
                 .get(PAIR)
                 .stream()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(opponentsHand));
 
         if (myPairValue.compareTo(opponentPairValue) > 0) {
             return 1;

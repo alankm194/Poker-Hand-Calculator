@@ -1,9 +1,7 @@
-package org.alan;
+package org.alan.hands;
 
 import org.alan.card.Card;
 import org.alan.card.FaceValues;
-import org.alan.hands.*;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;

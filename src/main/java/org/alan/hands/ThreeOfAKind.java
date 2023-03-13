@@ -1,7 +1,7 @@
 package org.alan.hands;
 
 import org.alan.card.Card;
-import org.alan.HandRank;
+import org.alan.exceptions.InvalidHandException;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +26,7 @@ public class ThreeOfAKind extends Hand{
     }
 
     @Override
-    public int compareHands(Hand opponentsHand) {
+    public int compareHands(Hand opponentsHand) throws InvalidHandException {
         if (THREE_OF_A_KIND_HAND_RANK.getRank() > opponentsHand.getHandRank().getRank()) {
             return 1;
         } else if(THREE_OF_A_KIND_HAND_RANK.getRank() < opponentsHand.getHandRank().getRank()) {
@@ -48,13 +48,13 @@ public class ThreeOfAKind extends Hand{
                 .stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(this));
 
         var opponentTriple = opponentTripleAndKickerMap.get(TRIPLE)
                 .stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(opponentsHand));
 
         if (myTriple.compareTo(opponentTriple) > 0 ) {
             return 1;

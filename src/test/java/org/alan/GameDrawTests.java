@@ -4,6 +4,7 @@ package org.alan;
 import org.alan.card.Card;
 import org.alan.card.FaceValues;
 import org.alan.card.SuitValues;
+import org.alan.hands.RankHand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

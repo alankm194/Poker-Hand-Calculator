@@ -1,7 +1,7 @@
 package org.alan.hands;
 
 import org.alan.card.Card;
-import org.alan.HandRank;
+import org.alan.exceptions.InvalidHandException;
 
 import java.util.List;
 
@@ -24,6 +24,6 @@ public abstract class Hand  {
 
     public abstract HandRank getHandRank();
 
-    public abstract int compareHands(Hand opponentsHand);
+    public abstract int compareHands(Hand opponentsHand) throws InvalidHandException;
 
 }

@@ -3,6 +3,7 @@ package org.alan;
 import org.alan.card.Card;
 import org.alan.card.FaceValues;
 import org.alan.card.SuitValues;
+import org.alan.hands.RankHand;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;

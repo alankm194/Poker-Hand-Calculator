@@ -1,7 +1,7 @@
 package org.alan.hands;
 
 import org.alan.card.Card;
-import org.alan.HandRank;
+import org.alan.exceptions.InvalidHandException;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +24,7 @@ public class PairHand extends Hand {
     }
 
     @Override
-    public int compareHands(Hand opponentHand) {
+    public int compareHands(Hand opponentHand) throws InvalidHandException {
         if (PAIR_HAND_RANK.getRank() > opponentHand.getHandRank().getRank()) {
             return 1;
         } else if (PAIR_HAND_RANK.getRank() < opponentHand.getHandRank().getRank()) {
@@ -46,13 +46,13 @@ public class PairHand extends Hand {
                 .stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(this));
 
         var opponentsPairValue = opponentPairAndKickersMap.get(PAIR)
                 .stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(opponentHand));
 
 
 

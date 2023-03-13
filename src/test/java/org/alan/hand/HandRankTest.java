@@ -1,6 +1,6 @@
 package org.alan.hand;
 
-import org.alan.HandRank;
+import org.alan.hands.HandRank;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;

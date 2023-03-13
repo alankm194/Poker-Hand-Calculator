@@ -1,7 +1,6 @@
 package org.alan.hands;
 
 import org.alan.card.Card;
-import org.alan.HandRank;
 
 import java.util.List;
 

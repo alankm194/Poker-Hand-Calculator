@@ -1,4 +1,4 @@
-package org.alan;
+package org.alan.hands;
 
 public enum HandRank {
     HIGH_CARD(1),
