@@ -17,4 +17,21 @@ public class TwoPairHand extends Hand {
     public HandRank getHandRank() {
         return TWO_PAIR_HAND_RANK;
     }
+
+    @Override
+    public int compareHands(Hand opponentsHand) {
+        if (TWO_PAIR_HAND_RANK.getRank() > opponentsHand.getHandRank().getRank()) {
+            return 1;
+        } else if(TWO_PAIR_HAND_RANK.getRank() < opponentsHand.getHandRank().getRank()) {
+            return -1;
+        }
+
+        //TODO implement draw
+
+        return 0;
+
+
+    }
+
+
 }

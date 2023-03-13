@@ -5,17 +5,17 @@ import org.alan.HandRank;
 
 import java.util.List;
 
-public abstract class Hand {
+public abstract class Hand  {
 
-    private static final int MAX_HAND = 5;
+    protected static final int MAX_HAND_SIZE = 5;
     private final List<Card> currentHand;
 
     protected Hand(List<Card> currentHand) {
-        if (currentHand.size() > MAX_HAND) {
+        if (currentHand.size() > MAX_HAND_SIZE) {
             throw new IllegalArgumentException("A legal hand must be 5 cards");
         }
 
-        this.currentHand = currentHand;
+        this.currentHand = currentHand.stream().sorted().toList();
     }
 
     public List<Card> getCards() {
@@ -23,5 +23,7 @@ public abstract class Hand {
     }
 
     public abstract HandRank getHandRank();
+
+    public abstract int compareHands(Hand opponentsHand);
 
 }
