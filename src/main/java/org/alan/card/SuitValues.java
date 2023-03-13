@@ -36,7 +36,7 @@ public enum SuitValues {
         return value;
     }
 
-    public SuitValues getFaceValueFromAbbreviation(String abbreviation) {
+    public static SuitValues getFaceValueFromAbbreviation(String abbreviation) {
         return abbreviationToSuitMap.get(abbreviation);
     }
 }

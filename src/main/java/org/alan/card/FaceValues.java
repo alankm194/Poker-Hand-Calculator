@@ -42,7 +42,7 @@ public enum FaceValues {
         return abbreviation;
     }
 
-    public FaceValues getFaceValueFromAbbreviation(String abbreviation) {
+    public static FaceValues getFaceValueFromAbbreviation(String abbreviation) {
         return abbreviationToFaceMap.get(abbreviation);
     }
 }
