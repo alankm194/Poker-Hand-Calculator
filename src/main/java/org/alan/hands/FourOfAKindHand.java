@@ -1,7 +1,7 @@
 package org.alan.hands;
 
 import org.alan.card.Card;
-import org.alan.HandRank;
+import org.alan.exceptions.InvalidHandException;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +24,7 @@ public class FourOfAKindHand extends Hand{
     }
 
     @Override
-    public int compareHands(Hand opponentsHand) {
+    public int compareHands(Hand opponentsHand) throws InvalidHandException {
         if (FOUR_OF_A_KIND_HAND_RANK.getRank() > opponentsHand.getHandRank().getRank()) {
             return 1;
         } else if (FOUR_OF_A_KIND_HAND_RANK.getRank() < opponentsHand.getHandRank().getRank()) {
@@ -45,12 +45,12 @@ public class FourOfAKindHand extends Hand{
         var fourOfKindCardP1 = quadAndKickerMapPlayer1.get(FOUR_OF_A_KIND).stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(this));
 
         var fourOfKindCardP2 = quadAndKickerMapPlayer2.get(FOUR_OF_A_KIND).stream()
                 .distinct()
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new InvalidHandException(opponentsHand));
 
         if (fourOfKindCardP1.compareTo(fourOfKindCardP2) > 0) {
             return 1;
@@ -62,9 +62,5 @@ public class FourOfAKindHand extends Hand{
 
             return Integer.compare(kickerPlayer1.compareTo(kickerPlayer2), 0);
         }
-
-
     }
-
-
 }
