@@ -24,7 +24,7 @@ public class PokerHandCalculatorTest {
 
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/pokerHandCalculatorTest.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/pokerHandCalculatorTestWin.csv", numLinesToSkip = 1)
     public void testPokerHandCalculateGame(String expectedWinner, String winningHand,  String hand1, String hand2) throws InvalidUserInputException, InvalidHandException {
         pokerHandCalculator = new PokerHandCalculator();
 
@@ -32,6 +32,18 @@ public class PokerHandCalculatorTest {
                 "Player 2", Arrays.asList(hand2.split(" ")));
         var winner = pokerHandCalculator.calculatePokerWinner(userInput);
         assertEquals(String.format("the winner is %s with %s", expectedWinner, winningHand), winner);
+
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/pokerHandCalculatorTestDraw.csv", numLinesToSkip = 1)
+    public void testPokerHandCalculateGame_whenBothCardsDraw(String drawingHand,  String hand1, String hand2) throws InvalidUserInputException, InvalidHandException {
+        pokerHandCalculator = new PokerHandCalculator();
+
+        var userInput = Map.of("Player 1", Arrays.asList(hand1.split(" ")),
+                "Player 2", Arrays.asList(hand2.split(" ")));
+        var winner = pokerHandCalculator.calculatePokerWinner(userInput);
+        assertEquals(String.format("Both hands have drawn with %s", drawingHand), winner);
 
     }
 

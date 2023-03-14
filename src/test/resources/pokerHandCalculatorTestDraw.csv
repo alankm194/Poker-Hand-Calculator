@@ -1,0 +1,8 @@
+drawing hand,hand1, hand2
+Straight flush,3S 4S 5S 6S 7S, 3S 4S 5S 6S 7S
+Full house,4D 4D 5C 5C 4D, 4D 4D 5C 5C 4D
+High card ,2D 4C 6H 8H 10S, 2D 4C 6H 8H 10S
+Flush ,2S 4S 5S 6S 7S, 2S 4S 5S 6S 7S
+Three of a kind ,2S 2S 2S KD AS, 2S 2S 2S KD AS
+Four of a kind ,AD AC AH AH 10S, AD AC AH AH 10S
+Two pair ,2D 4C 4H 10H 10S, 2D 4C 4H 10H 10S
