@@ -34,7 +34,6 @@ public class PokerHandCalculator {
         }
     }
 
-
     public String calculatePokerWinner() throws InvalidUserInputException, InvalidHandException {
         var playerInputMap = new UserInput().getPlayerCards();
         var player1CardList = translateStringHandIntoListOfCard(playerInputMap.get(PLAYER_1));
@@ -50,8 +49,6 @@ public class PokerHandCalculator {
         }
     }
 
-
-
     public List<Card> translateStringHandIntoListOfCard(List<String> stringCardList) throws InvalidUserInputException {
         List<Card> playerCards = new ArrayList<>();
 
@@ -60,11 +57,11 @@ public class PokerHandCalculator {
             var suit = faceAndSuit.substring(faceAndSuit.length() - 1);
             FaceValues faceValue = FaceValues.getFaceValueFromAbbreviation(face);
             if (faceValue == null) {
-                throw new InvalidUserInputException();
+                throw new InvalidUserInputException("Face value is invalid " + face);
             }
             SuitValues suitValue = SuitValues.getFaceValueFromAbbreviation(suit);
             if (suitValue == null) {
-                throw new InvalidUserInputException();
+                throw new InvalidUserInputException("Suit Value is invalid " + suit);
             }
 
             playerCards.add(new Card(faceValue, suitValue));

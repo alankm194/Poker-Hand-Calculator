@@ -3,10 +3,10 @@ package org.alan.exceptions;
 public class InvalidUserInputException extends Exception{
 
 
-    private static final String MESSAGE_FORMAT = "User input is invalid.";
+    private static final String MESSAGE_FORMAT = "User input is invalid. %s";
 
-    public InvalidUserInputException() {
-        super(MESSAGE_FORMAT);
+    public InvalidUserInputException(String message) {
+        super(String.format(MESSAGE_FORMAT, message));
     }
 
 }
