@@ -1,0 +1,8 @@
+winner, winning hand,hand1, hand2
+Player 1, Straight flush,3S 4S 5S 6S 7S, 3S 4C 5H 6D 7C
+Player 2, Straight ,4D 4D 5C 5C KD, 3S 4C 5H 6D 7C
+Player 2, High card ,2D 4C 6H 8H 10S, 4C 5C 8D JH QD
+Player 1, Flush ,2S 4S 5S 6S 7S, 3S 3C 5H 6D 7C
+Player 1, Three of a kind ,2S 2S 2S KD AS, 3S 3C 5H 7D 7C
+Player 1, Four of a kind ,AD AC AH AH 10S, KD KH KD QH QD
+Player 2, Two pair ,2D 4C 6H 10H 10S, 4C 8C 8D QH QD

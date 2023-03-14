@@ -9,6 +9,7 @@ import org.alan.hands.RankHand;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class PokerHandCalculator {
@@ -22,7 +23,8 @@ public class PokerHandCalculator {
         System.out.println("example Player 1: 2H 3D 4S 5D AH  Player 2: AS AH KD QC 10C");
         while (true) {
             try {
-               System.out.println(pokerCalculator.calculatePokerWinner());
+                var playerInputMap = new UserInput().getPlayerCards();
+               System.out.println(pokerCalculator.calculatePokerWinner(playerInputMap));
                System.out.println("Do you wish to enter another hand, Please enter yes or no");
                if (!scanner.nextLine().trim().equalsIgnoreCase("yes")) {
                    break;
@@ -34,8 +36,7 @@ public class PokerHandCalculator {
         }
     }
 
-    public String calculatePokerWinner() throws InvalidUserInputException, InvalidHandException {
-        var playerInputMap = new UserInput().getPlayerCards();
+    public String calculatePokerWinner(Map<String, List<String>> playerInputMap) throws InvalidUserInputException, InvalidHandException {
         var player1CardList = translateStringHandIntoListOfCard(playerInputMap.get(PLAYER_1));
         var player2CardList = translateStringHandIntoListOfCard(playerInputMap.get(PLAYER_2));
         var rankHand = new RankHand();
@@ -43,13 +44,13 @@ public class PokerHandCalculator {
         var player2 = new Player(PLAYER_2, rankHand.rankHand(player2CardList));
         var winner = new Game().getWinnerOfGame(player1, player2);
         if (winner == null) {
-            return String.format("Both hands have drawn with %s%n", player1.hand().getHandRank());
+            return String.format("Both hands have drawn with %s", player1.hand().getHandRank());
         } else {
-            return String.format("the winner is %s with %s%n", winner.name(), winner.hand().getHandRank());
+            return String.format("the winner is %s with %s", winner.name(), winner.hand().getHandRank());
         }
     }
 
-    public List<Card> translateStringHandIntoListOfCard(List<String> stringCardList) throws InvalidUserInputException {
+    private List<Card> translateStringHandIntoListOfCard(List<String> stringCardList) throws InvalidUserInputException {
         List<Card> playerCards = new ArrayList<>();
 
         for (String faceAndSuit : stringCardList) {
